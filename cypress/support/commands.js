@@ -25,24 +25,31 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('uiLogin', () => {
-    cy.session('user', () => {
-        cy.visit('/')
+  cy.session('user', () => {
+    cy.visit('/')
 
-        cy.env(['valid_username', 'valid_password']).then(({ valid_username, valid_password }) => {
-            cy.get('[placeholder="Username"]').type(valid_username)
-            cy.get('[placeholder="Password"]').type(valid_password)
-            cy.get('[data-test="login-button"]').click()
-            cy.get('#inventory_container').should('be.visible').and('not.be.empty')
-            cy.location('pathname').should('eq', '/inventory.html')
-        }) 
-    })
-        cy.visit('https://www.saucedemo.com/inventory.html' , { failOnStatusCode: false })
+    cy.env(['valid_username', 'valid_password']).then(
+      ({ valid_username, valid_password }) => {
+        cy.get('[placeholder="Username"]').type(valid_username)
+        cy.get('[placeholder="Password"]').type(valid_password)
+        cy.get('[data-test="login-button"]').click()
+        cy.get('#inventory_container').should('be.visible').and('not.be.empty')
+        cy.location('pathname').should('eq', '/inventory.html')
+      }
+    )
+  })
+  cy.visit('https://www.saucedemo.com/inventory.html', {
+    failOnStatusCode: false,
+  })
 })
 
 Cypress.Commands.add('addProductToCart', () => {
-    cy.get('[data-test="inventory-item-name"]').contains('Sauce Labs Backpack')
-    cy.get('[id="add-to-cart-sauce-labs-backpack"').contains('Add to cart').click()
-    cy.get('[id="remove-sauce-labs-backpack"').should('be.visible').and('contain.text', 'Remove')
-    cy.get('.shopping_cart_badge').should('be.visible').and('contain.text', '1')
+  cy.get('[data-test="inventory-item-name"]').contains('Sauce Labs Backpack')
+  cy.get('[id="add-to-cart-sauce-labs-backpack"')
+    .contains('Add to cart')
+    .click()
+  cy.get('[id="remove-sauce-labs-backpack"')
+    .should('be.visible')
+    .and('contain.text', 'Remove')
+  cy.get('.shopping_cart_badge').should('be.visible').and('contain.text', '1')
 })
-
