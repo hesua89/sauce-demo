@@ -38,7 +38,7 @@ Cypress.Commands.add('uiLogin', () => {
       }
     )
   })
-  cy.visit('https://www.saucedemo.com/inventory.html', {
+  cy.visit('inventory.html', {
     failOnStatusCode: false,
   })
 })

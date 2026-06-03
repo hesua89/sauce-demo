@@ -6,7 +6,7 @@ describe('Checkout', () => {
     cy.uiLogin()
   })
 
-  it.skip('Complete checkout', () => {
+  it('Complete checkout', () => {
     cy.addProductToCart()
     cy.get('.shopping_cart_link').click()
     cy.get('.cart_item')
@@ -24,9 +24,9 @@ describe('Checkout', () => {
       force: true,
       delay: 100,
     })
-    cy.get('[data-test="firstName"]').reactType('Value 1')
-    cy.get('#last-name').reactType('Value 2')
-    cy.get('#postal-code').reactType('Value 3')
+    cy.get('[data-test="firstName"]').type('Value 1')
+    cy.get('#last-name').type('Value 2')
+    cy.get('#postal-code').type('Value 3')
     cy.get('#continue').click()
     cy.get('.summary_total_label').should('be.visible').and('not.be.empty')
     cy.get('#finish').click()
